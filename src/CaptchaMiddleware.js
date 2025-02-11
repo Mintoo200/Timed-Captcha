@@ -20,7 +20,7 @@ function CaptchaMiddleware(request, h) {
     const human = isHuman(request, request.server.settings.app.CaptchaMap);
     console.log(human)
     if (!human) {
-        const response = h.response().redirect('http://localhost:3000/captcha')
+        const response = h.response().redirect(`/captcha?redirect=${encodeURIComponent(request.url)}`)
             .temporary()
         response.takeover()
         return response

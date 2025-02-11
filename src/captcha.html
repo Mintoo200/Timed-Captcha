@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page1 | Timed Captcha</title>
+    <style>
+        label, input {
+            display: block;
+            clip-path: rect(1px 1px 1px 1px);
+        }
+    </style>
+</head>
+<body>
+<h1>Vous allez un peu vite !</h1>
+<form action="" mathod="GET">
+    <label for="honeypot">Suis-je un robot ?</label>
+    <input type="checkbox" name="honeypot" id="honeypot" tabindex="-1">
+    <button>Revenir sur le site</button>
+</form>
+<script>
+    document.querySelector('form')
+        .setAttribute('action', new URLSearchParams(location.search).get('redirect'))
+</script>
+</body>
+</html>
