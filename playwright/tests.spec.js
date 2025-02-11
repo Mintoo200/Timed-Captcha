@@ -6,7 +6,7 @@ test('As a bot', async ({ page }) => {
     const link = page.getByRole('link');
     await link.click();
 
-    expect(page).toHaveURL(/\/page2$/)
+    expect(page).toHaveURL(/\/captcha$/)
 })
 
 test('As a human', async ({ page }) => {
