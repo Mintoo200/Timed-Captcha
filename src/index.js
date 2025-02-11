@@ -2,6 +2,7 @@
 
 const Hapi = require('@hapi/hapi');
 const Path = require('path');
+const {CaptchaMiddleware} = require("./CaptchaMiddleware");
 
 const init = async () => {
 
@@ -12,6 +13,9 @@ const init = async () => {
             files: {
                 relativeTo: Path.join(__dirname)
             }
+        },
+        app: {
+            CaptchaMap: new Map(),
         }
     });
 
@@ -22,6 +26,11 @@ const init = async () => {
         path: '/',
         handler: (request, h) => {
             return 'Hello World!';
+        },
+        options: {
+            pre: [
+                CaptchaMiddleware
+            ]
         }
     })
     server.route({
@@ -29,6 +38,11 @@ const init = async () => {
         path: '/page1',
         handler: (request, h) => {
             return h.file('./page1.html');
+        },
+        options: {
+            pre: [
+                CaptchaMiddleware
+            ]
         }
     })
     server.route({
@@ -36,6 +50,11 @@ const init = async () => {
         path: '/page2',
         handler: (request, h) => {
             return h.file('./page2.html');
+        },
+        options: {
+            pre: [
+                CaptchaMiddleware
+            ]
         }
     })
 
