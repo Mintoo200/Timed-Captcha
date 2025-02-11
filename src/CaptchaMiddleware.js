@@ -16,10 +16,12 @@ function isHuman(request, map) {
     return (now - then > THRESHOLD)
 }
 
+function isHoneyPotted(request) {
+    return request.query.honeypot != null
+}
+
 function CaptchaMiddleware(request, h) {
-    const human = isHuman(request, request.server.settings.app.CaptchaMap);
-    console.log(human)
-    if (!human) {
+    if (!isHuman(request, request.server.settings.app.CaptchaMap) || isHoneyPotted(request)) {
         const response = h.response().redirect(`/captcha?redirect=${encodeURIComponent(request.url)}`)
             .temporary()
         response.takeover()
@@ -27,7 +29,6 @@ function CaptchaMiddleware(request, h) {
     }
     return h.continue
 }
-
 
 module.exports = {
     CaptchaMiddleware,

@@ -63,11 +63,6 @@ const init = async () => {
         path: '/captcha',
         handler: (request, h) => {
             return h.file('./captcha.html')
-        },
-        options: {
-            pre: [
-                CaptchaMiddleware
-            ]
         }
     })
 
