@@ -31,13 +31,19 @@ const init = async () => {
             return h.file('./page1.html');
         }
     })
+    server.route({
+        method: 'GET',
+        path: '/page2',
+        handler: (request, h) => {
+            return h.file('./page2.html');
+        }
+    })
 
     await server.start();
     console.log('Server running on %s', server.info.uri);
 };
 
 process.on('unhandledRejection', (err) => {
-
     console.log(err);
     process.exit(1);
 });
