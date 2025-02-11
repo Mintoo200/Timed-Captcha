@@ -5,17 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Page1 | Timed Captcha</title>
     <style>
-        label, input {
+        [hidden]:not([hidden="false"]),
+        label:has(+ input[hidden]:not([hidden="false"])) {
+            display: none;
+        }
+        label, input, button {
             display: block;
+        }
+        input[type="checkbox"], input[type="checkbox"] + label {
+            display: inline;
+        }
+
+        .clip {
             clip-path: rect(1px 1px 1px 1px);
+        }
+        .clip:focus,
+        input[type="checkbox"].clip:focus + label,
+        label.clip:has(+ input:not([type="checkbox"]).clip:focus) {
+            clip-path: revert;
+        }
+
+        .visibility {
+            visibility: hidden;
+        }
+
+        .positioned {
+            position: absolute;
+            top: -100lvh;
+            right: 100vw;
+        }
+
+        img {
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
 <h1>Vous allez un peu vite !</h1>
 <form action="" method="GET">
-    <label for="honeypot">Suis-je un robot ?</label>
-    <input type="checkbox" name="honeypot" id="honeypot" tabindex="-1">
+    <input class="clip" type="checkbox" name="captcha" id="cgu">
+    <label class="clip" for="cgu">Je suis un robot</label>
+
+    <label for="captcha">Veuillez entrer les caractères présents dans l'image suivante : <img height="64" width="300" src="https://www.drupal.org/files/project-images/captcha.png" alt=""></label>
+    <input type="text" hidden="" name="captcha" id="captcha">
+
+    <label class="clip" for="math">Combien font 5 + 3</label>
+    <input class="clip" tabindex="-1" type="number"  name="captcha" id="math">
+
+    <label class="visibility" for="math">Combien font 5 + 3</label>
+    <input class="visibility" tabindex="-1" type="number"  name="captcha" id="math">
+
+    <label class="positioned" for="math">Combien font 5 + 3</label>
+    <input class="positioned" tabindex="-1" type="number"  name="captcha" id="math">
+
     <button>Revenir sur le site</button>
 </form>
 <script>
