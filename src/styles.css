@@ -1,0 +1,60 @@
+:root {
+  --accent-color: #F02F34;
+}
+
+body {
+  max-width: 800px;
+  margin: 5% auto;
+}
+
+nav li {
+  display: inline-block;
+  margin: 0;
+}
+a {
+  color: #353535;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0 1em;
+  border: 2px solid var(--accent-color);
+  opacity: 70%;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+}
+
+a:hover, a:focus-visible {
+  opacity: 1;
+}
+
+a:not([aria-current="page"]) {
+  border-bottom: none;
+}
+
+main {
+  border: 2px solid;
+  border-color: var(--accent-color);
+  padding:1.5em;
+  border-radius:0.5em;
+}
+
+h2 {
+  margin: 0;
+  border-bottom: 2px dashed var(--accent-color);
+}
+
+footer {
+  text-align: center;
+  color: grey;
+  font-size: 10px;
+
+}
+
+img{
+  display: block;
+  height: 10em;
+  justify-content: right;
+}
+
+main a {
+  color: var(--accent-color);
+}

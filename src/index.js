@@ -25,13 +25,27 @@ const init = async () => {
         method: 'GET',
         path: '/',
         handler: (request, h) => {
-            return 'Hello World!';
+            return h.file('./index.html');
         },
         options: {
             pre: [
                 CaptchaMiddleware
             ]
         }
+    })
+    server.route({
+        method: 'GET',
+        path: '/styles.css',
+        handler: (request, h) => {
+            return h.file('./styles.css');
+        },
+    })
+    server.route({
+        method: 'GET',
+        path: '/logo.jpeg',
+        handler: (request, h) => {
+            return h.file('./logo.jpeg');
+        },
     })
     server.route({
         method: 'GET',
