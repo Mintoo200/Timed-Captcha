@@ -1,18 +1,30 @@
+const crypto = require("crypto")
+
 const THRESHOLD = 1000;
 
-function isHuman(request, map) {
-    const ip = request.info.remoteAddress
+async function hash(ip) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(ip);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data)
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray
+        .map((b) => b.toString(16).padStart(2, "0"))
+        .join("");
+    return hashHex;
+}
 
-    const previousCall = map.get(ip);
+async function isHuman(request, map) {
+    const ip = request.info.remoteAddress;
+    const ipHash = await hash(ip)
+
+    const previousCall = map.get(ipHash);
 
     const now = Date.now();
-    map.set(ip, now);
+    map.set(ipHash, now);
 
     if(!previousCall) return true;
 
     const then = new Date(previousCall)
-
-    console.log(now - then)
     return (now - then > THRESHOLD)
 }
 
@@ -24,8 +36,9 @@ function isHoneyPotted(request) {
     )
 }
 
-function CaptchaMiddleware(request, h) {
-    if (!isHuman(request, request.server.settings.app.CaptchaMap) || isHoneyPotted(request)) {
+async function CaptchaMiddleware(request, h) {
+    const human = await isHuman(request, request.server.settings.app.CaptchaMap);
+    if (!human || isHoneyPotted(request)) {
         const response = h.response().redirect(`/captcha?redirect=${encodeURIComponent(request.url)}`)
             .temporary()
         response.takeover()
