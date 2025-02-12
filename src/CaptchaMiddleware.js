@@ -17,7 +17,11 @@ function isHuman(request, map) {
 }
 
 function isHoneyPotted(request) {
-    return request.query.captcha != null
+    return (
+        request.query.captcha != null
+        && request.query.captcha != ""
+        && (!Array.isArray(request.query.captcha) || request.query.captcha.some((element) => element != ""))
+    )
 }
 
 function CaptchaMiddleware(request, h) {

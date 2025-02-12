@@ -35,6 +35,13 @@
             right: 100vw;
         }
 
+        .white {
+            color: white;
+            background-color: white;
+            border-color: white;
+            appearance: none;
+        }
+
         img {
             object-fit: cover;
         }
@@ -50,13 +57,16 @@
     <input type="text" hidden="" name="captcha" id="captcha">
 
     <label class="clip" for="math">Combien font 5 + 3</label>
-    <input class="clip" tabindex="-1" type="number"  name="captcha" id="math">
+    <input class="clip" tabindex="-1" type="text" name="captcha" id="math">
 
-    <label class="visibility" for="math">Combien font 5 + 3</label>
-    <input class="visibility" tabindex="-1" type="number"  name="captcha" id="math">
+    <label class="visibility" for="math2">Combien font 5 + 3</label>
+    <input class="visibility" tabindex="-1" type="text" name="captcha" id="math2">
 
-    <label class="positioned" for="math">Combien font 5 + 3</label>
-    <input class="positioned" tabindex="-1" type="number"  name="captcha" id="math">
+    <label class="positioned" for="math3">Combien font 5 + 3</label>
+    <input class="positioned" tabindex="-1" type="text" name="captcha" id="math3">
+
+    <input class="white" tabindex="-1" type="checkbox" name="captcha" id="human">
+    <label class="white" for="human">Je suis humain</label>
 
     <button>Revenir sur le site</button>
 </form>
